@@ -12,3 +12,6 @@ def test_array():
     c = procin.Command()
     ab = c.run_json(["echo", "-n", "[]"])
     assert ab == []
+
+def test_fail():
+    assert False
