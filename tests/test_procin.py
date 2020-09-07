@@ -38,6 +38,3 @@ def test_cache(tmpdir):
     js = json.loads(s)
     assert j == js
     assert j == c.run_json(command)
-
-def test_x():
-    c = procin.Command(cache=True)
