@@ -1,14 +1,16 @@
 """Top-level package for procin."""
 __author__ = """Powell Quiring"""
-__email__ = 'powellquiring@gmail.com'
-__version__ = '0.1.0'
+__email__ = "powellquiring@gmail.com"
+__version__ = "0.1.0"
 
 import subprocess
-import typing
+
+# import typing
 import json
 from pathlib import Path
 import codecs
 import os.path
+
 
 class Command:
     def __init__(self, print_output=False, print_error=True, cache=False, cache_dir=None):
