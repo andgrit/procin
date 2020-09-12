@@ -32,13 +32,13 @@ You can either clone the public repository:
 
 .. code-block:: console
 
-    $ git clone git://github.com/powellquiring/procin
+    $ git clone git://github.com/andgrit/procin
 
 Or download the `tarball`_:
 
 .. code-block:: console
 
-    $ curl -OJL https://github.com/powellquiring/procin/tarball/master
+    $ curl -OJL https://github.com/andgrit/procin/tarball/master
 
 Once you have a copy of the source, you can install it with:
 
@@ -47,5 +47,5 @@ Once you have a copy of the source, you can install it with:
     $ python setup.py install
 
 
-.. _Github repo: https://github.com/powellquiring/procin
-.. _tarball: https://github.com/powellquiring/procin/tarball/master
+.. _Github repo: https://github.com/andgrit/procin
+.. _tarball: https://github.com/andgrit/procin/tarball/master

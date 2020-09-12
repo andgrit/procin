@@ -12,5 +12,5 @@ deploy:
     secure: xfeqEOYndq+g3if6d8sEPzGd5g0IehNIbX02XHbZEJfxDHlk+cWa6iTkOuA5V6munqM0X57OhwYUc9mmYNWGXRwmDIDvp3EW8a7Hpg61EY/Io9gB5P2ApUET6Kyxsjq+ZeDI5hGGtggfr3qArvyMOF0Pe9BIVQSUm9ELGM0uBoiz890o0bziQPzdAduR/O+1Zaacl5983i3zejyBm06bb9rQKETnosqCfG8giacCaFajla0hz3xh/G2H0VAI+li0RAAAld/uMU1VnbIKI0eUZVgZ4im3WZj8b4mPSKs43p+2Zsfnt7lrUn/XlOmlacry+S713BaRfXneybi6XUCQ/YbWYPCawo/VeQ4K9s+aqqHLAJQWehbSyDv9D5z4mRjwVN3K20MtdifQ8F5hjGlhBXVxO/vTSsukcbp5D4hNFKt5So/PuOP2bIfolSEgmLDKnypASlQXk8GArVB+L3DH8amKXO3En+ts8x6euSPVKj9durE3dq6i1/YaghsmQwMoZZ13FDDf3PKrVbabUajCS880XYc3+qRnZmWPhvaXTILeGT4hXqX2BBRWSdD1H6SZTWrYv4vLnpeWjH5uBzzT22F/zDdKEKG/YwA6S/UPOG2SwLrVN++MCGF0H5UmylXOvkujOsQyG7FWmi0+WihyzzwYJvyVks8AQ9v7SfwFbL8=
   on:
     tags: true
-    repo: powellquiring/procin
+    repo: andgrit/procin
     python: 3.8

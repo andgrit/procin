@@ -46,7 +46,7 @@ setup(
     setup_requires=setup_requirements,
     test_suite="tests",
     tests_require=test_requirements,
-    url="https://github.com/powellquiring/procin",
+    url="https://github.com/andgrit/procin",
     version="version='0.2.0'",
     zip_safe=False,
 )

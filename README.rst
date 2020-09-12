@@ -2,14 +2,16 @@
 procin
 ======
 
-# Test2
+# Release
+Check out [for every release](https://cookiecutter-pypackage.readthedocs.io/en/latest/pypi_release_checklist.html#for-every-release)
+# Test
 
 
 .. image:: https://img.shields.io/pypi/v/procin.svg
         :target: https://pypi.python.org/pypi/procin
 
-.. image:: https://img.shields.io/travis/powellquiring/procin.svg
-        :target: https://travis-ci.com/powellquiring/procin
+.. image:: https://img.shields.io/travis/andgrit/procin.svg
+        :target: https://travis-ci.com/andgrit/procin
 
 .. image:: https://readthedocs.org/projects/procin/badge/?version=latest
         :target: https://procin.readthedocs.io/en/latest/?badge=latest
