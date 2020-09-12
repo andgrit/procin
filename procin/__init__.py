@@ -1,7 +1,7 @@
 """Top-level package for procin."""
 __author__ = """Powell Quiring"""
 __email__ = "powellquiring@gmail.com"
-__version__ = "__version__ = '0.2.2'"
+__version__ = "__version__ = '0.3.0'"
 
 import subprocess
 
