@@ -20,21 +20,59 @@ def test_filename():
     print(command)
 
 def test_array():
-    c = procin.Command()
-    ab = c.run_json(["echo", "-n", "[]"])
+    c = procin.Command(json=True)
+    ab = c.run(["echo", "-n", "[]"])
     assert ab == []
-    ab = c.run_json(["echo", "[]"])
+    ab = c.run(["echo", "[]"])
     assert ab == []
-    ab = c.run_json(["/bin/echo", f'{{"v": "{wierd_string}"}}'])
+    ab = c.run(["/bin/echo", f'{{"v": "{wierd_string}"}}'])
     assert ab["v"] == wierd_string
 
 def test_cache(tmpdir):
-    c = procin.Command(cache=True, cache_dir=tmpdir)
+    c = procin.Command(json=True, cache=True, cache_dir=str(tmpdir))
     command = ["/bin/echo", "-n", '{"h": "hello"}']
     assert c.in_cache(command) == None
-    j = c.run_json(command)
+    j = c.run(command)
     assert j["h"] == "hello"
     s = c.in_cache(command)
     js = json.loads(s)
     assert j == js
-    assert j == c.run_json(command)
+    assert j == c.run(command)
+
+def test_sematics():
+    c = procin.Command()
+    ab = c.run(["echo", "-n", "[]"], json=True)
+    assert ab == []
+    with pytest.raises(AttributeError) as excinfo:
+        ab = c.run(["echo", "-n", "[]"], x=True)
+    assert "'x'" in str(excinfo)
+    with pytest.raises(json.decoder.JSONDecodeError) as excinfo:
+        ab = c.run(["echo", "-n", "not json"], json=True)
+
+def test_print_command(capsys):
+    c = procin.Command(print_command=True)
+    ab = c.run(["echo", "hi"])
+    captured = capsys.readouterr()
+    assert "echo" in captured.out
+    assert "hi" in captured.out
+
+def test_print_output(capsys):
+    c = procin.Command(print_output=True)
+    ab = c.run(["echo", "hi"])
+    captured = capsys.readouterr()
+    assert "echo" not in captured.out
+    assert "hi" in captured.out
+
+def test_run_fail():
+    c = procin.Command()
+    with pytest.raises(Exception) as excinfo:
+        _ = c.run(["false"])
+    result = c.run(["false"], catch=True)
+
+def test_cache_clear():
+    command = ["true"]
+    c = procin.Command(cache=True, cache_dir="test")
+    c.run(command)
+    assert c.in_cache(command) != None
+    c.clear_cache()
+    assert c.in_cache(command) == None

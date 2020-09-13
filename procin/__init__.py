@@ -13,15 +13,20 @@ import os.path
 
 
 class Command:
-    def __init__(self, print_output=False, print_error=True, cache=False, cache_dir=None):
+    def __init__(self, json=False, print_command=False, print_output=False, print_error=True, catch=False, cache=False, cache_dir=None):
+        self.json = json
+        self.print_command = print_command
         self.print_output = print_output
         self.print_error = print_error
+        self.catch = catch
         self.cache = cache
         if self.cache:
             if cache_dir == None:
-                self.cache_dir = os.path.expanduser("~/procin")
-            else:
+                raise AttributeError("cache_dir required")
+            if cache_dir[0] == "/":
                 self.cache_dir = cache_dir
+            else:
+                self.cache_dir = os.path.expanduser("~/procin/" + cache_dir)
         if self.cache:
             self.cache_path = Path(self.cache_dir)
             if self.cache_path.exists():
@@ -70,6 +75,12 @@ class Command:
     def file_cache_path(self, command):
         return Path(self.cache_dir) / self.command_to_filename(command)
 
+    def clear_cache(self):
+        for f in self.cache_path.glob("*"):
+            if str(f)[-2:] == "^n":
+                # make sure it ends in a new line, avoid catastrophe
+                f.unlink()
+
     def in_cache(self, command):
         """text of the cache hit or None"""
         if self.cache:
@@ -88,20 +99,27 @@ class Command:
             self.file_cache_path(command).write_text(stdout)
         return stdout
 
-    def run(self, command, catch:bool=False, print_command:bool=False, print_output:bool=False):
-        if print_command:
+    def run(self, command, **kwargs):
+        for var, value in kwargs.items():
+            if var in self.__dict__:
+                self.__dict__[var] = value
+            else:
+                raise AttributeError(var)
+
+        if self.print_command:
             print(' '.join(command))
-        if catch:
-            try:
-                stdout = self.run_with_cache(command)
-            except subprocess.CalledProcessError:
+
+        try:
+            stdout = self.run_with_cache(command)
+        except:
+            if self.catch:
                 print('*** Command execution failed')
                 stdout = ""
-        else:
-            stdout = self.run_with_cache(command)
-        if print_output:
+            else:
+                raise
+        if self.print_output:
             print(stdout)
-        return stdout
-
-    def run_json(self, command):
-        return json.loads(self.run(command))
+        if self.json:
+            return json.loads(stdout)
+        else:
+            return stdout
