@@ -45,7 +45,6 @@ def test_sematics():
     assert ab == []
     with pytest.raises(AttributeError) as excinfo:
         ab = c.run(["echo", "-n", "[]"], x=True)
-    assert "'x'" in str(excinfo)
     with pytest.raises(json.decoder.JSONDecodeError) as excinfo:
         ab = c.run(["echo", "-n", "not json"], json=True)
 
