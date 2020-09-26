@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 import codecs
 import os.path
-
+import copy
 
 class Command:
     def __init__(self, json=False, print_command=False, print_output=False, print_error=True, catch=False, cache=False, cache_dir=None):
@@ -100,26 +100,27 @@ class Command:
         return stdout
 
     def run(self, command, **kwargs):
+        c = copy.copy(self)
         for var, value in kwargs.items():
-            if var in self.__dict__:
-                self.__dict__[var] = value
+            if var in c.__dict__:
+                c.__dict__[var] = value
             else:
                 raise AttributeError(var)
 
-        if self.print_command:
+        if c.print_command:
             print(' '.join(command))
 
         try:
-            stdout = self.run_with_cache(command)
+            stdout = c.run_with_cache(command)
         except:
-            if self.catch:
+            if c.catch:
                 print('*** Command execution failed')
                 stdout = ""
             else:
                 raise
-        if self.print_output:
+        if c.print_output:
             print(stdout)
-        if self.json:
+        if c.json:
             return json.loads(stdout)
         else:
             return stdout

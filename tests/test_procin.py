@@ -75,3 +75,12 @@ def travis_fail_test_cache_clear():
     assert c.in_cache(command) != None
     c.clear_cache()
     assert c.in_cache(command) == None
+
+def test_run_does_not_change_defaults():
+    c = procin.Command(json=True)
+    js = c.run(["echo", "-n", "[]"], json=False)
+    assert(isinstance(js, str))
+    js = c.run(["echo", "-n", "[]"])
+    assert(not isinstance(js, str))
+    
+
